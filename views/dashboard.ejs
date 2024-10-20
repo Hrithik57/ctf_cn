@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h1>Welcome, <%= user.username %>!</h1>
+    <p>You need to explore this website and it's pages and find clues that will eventually lead you to flags.</p>
+    <p>You will then submit the flags in the dashboard page where you will be able to see the leaderboard and your
+        current score</p>
+
+    <h2>Your Score: <span id="score-<%= user._id %>">Score: <%= user.score %></span></h2>
+
+    <form id="flagForm" action="/submitflag" method="post">
+        <input type="text" id="flagInput" placeholder="Enter Flag" name="flag">
+        <input type="hidden" id="userId" value="<%= user._id %>" name="userId">
+        <button type="submit">Submit Flag</button>
+    </form>
+
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard">
+        <% if (leaders.length==0){%>
+            <p>No one has scored yet</p>
+            <% }else {%>
+                <% leaders.forEach((obj, index)=> { %>
+                    <li>
+                        <%= index + 1 %>. <%= obj.user.username %> - <%= obj.score %> points
+                    </li>
+                    <% }) %>
+                        <%}%>
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../javascripts/dashboard.js"></script>
+</body>
+
+</html>

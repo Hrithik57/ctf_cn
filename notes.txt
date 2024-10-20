@@ -1,0 +1,50 @@
+const session = require('express-session');
+const express = require('express');
+const app = express();
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true in production with HTTPS
+}));
+
+app.post('/login', (req, res) => {
+    req.session.userId = user.id; // Store user info in session
+    res.redirect('/dashboard');
+});
+
+// Middleware to check if user is logged in
+function checkAuth(req, res, next) {
+    if (req.session.userId) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+
+--------------
+Idea: Store the top scores in a json file on the server side
+const fs = require('fs-extra');
+const path = require('path');
+
+const scoresFilePath = path.join(__dirname, 'userScores.json');
+
+// Load scores from file
+async function loadScores() {
+    try {
+        const data = await fs.readJson(scoresFilePath);
+        return data;
+    } catch (err) {
+        return {}; // Return empty object if file doesn't exist
+    }
+}
+
+// Save scores to file
+async function saveScores(data) {
+    try {
+        await fs.writeJson(scoresFilePath, data);
+    } catch (err) {
+        console.error('Error saving scores:', err);
+    }
+}
