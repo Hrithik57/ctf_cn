@@ -64,6 +64,10 @@ const loggedinMiddleware =  (req, res, next) => {
     
 }
 
+
+app.get('/hints', (req, res) => {
+    res.send('your first flag is "flag1". Others won\'t be so trivial mofo. Search other pages!!!')
+})
 app.get('/dashboard', loggedinMiddleware,(req, res) => {
     const user = req.cookies.user
     console.log('req.cookies.user is', user)
@@ -103,6 +107,7 @@ app.post('/submitflag', (req, res) => {
                 if(el['flagmap'][flag] == 0){
                     el['flagmap'][flag] = 1;
                     el['score'] += corrflags[flag];
+                    el['user'].score += corrflags[flag];
                 }
                 else{
                     //flag was already submitted

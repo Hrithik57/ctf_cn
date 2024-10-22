@@ -14,7 +14,13 @@
     <p>You will then submit the flags in the dashboard page where you will be able to see the leaderboard and your
         current score</p>
 
-    <h2>Your Score: <span id="score-<%= user._id %>">Score: <%= user.score %></span></h2>
+    <!-- <h2>Your Score: <span id="score-<%= user._id %>">Score: <%= user.score %></span></h2> -->
+    <h2>Your Score:
+        <span id="score-<%= user._id %>">
+            Score: <%= leaders.find(leader=> leader.user._id === user._id)?.score || 0 %>
+        </span>
+    </h2>
+
 
     <form id="flagForm" action="/submitflag" method="post">
         <input type="text" id="flagInput" placeholder="Enter Flag" name="flag">
@@ -39,4 +45,55 @@
     <script src="../javascripts/dashboard.js"></script>
 </body>
 
+<!-- Here are the flags mofo:
+"abcflag1", "abcflag2", "abcflag3", "abcflag4" -->
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- haha mofo fooled you rigght!!!
+go check /hint page for more!!!! -->
